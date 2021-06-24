@@ -24,6 +24,7 @@ function App() {
     email:'',
     role:''
   })
+  const [currentUser, setCurrentUser] = useState(null)
   const reduxUsers = useSelector(state => state.users);
   const [allUsers, setAllUsers] = useState(reduxUsers);
   const [createOpen, setCreateOpen] = useState(false)
@@ -51,6 +52,7 @@ function App() {
        <nav>
          <button onClick={()=>{setViewOpen(true); setCreateOpen(false); setDetailsOpen(false)}}>Usuarios</button>
          <button onClick={()=>{setViewOpen(false); setCreateOpen(true); setDetailsOpen(false)}}>Agregar usuario</button>
+         <button onClick={()=>{setViewOpen(false); setCreateOpen(false); setDetailsOpen(true)}}>Agregar usuario</button>
        </nav>
      <video src="./dea10438c1728b0d5697e61f7aee4144.mp4"
       loop='true'
@@ -66,7 +68,9 @@ function App() {
         errors={errors} />}
         {viewOpen && <ViewUsers
         users={allUsers}
-        deleteUser={deleteUser}/>}
+        deleteUser={deleteUser}
+        seeUser={setCurrentUser}/>}
+        {detailsOpen && <UserDetails user={currentUser} />}
      </header>
     </div>
   );

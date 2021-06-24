@@ -3,7 +3,7 @@ import React from 'react'
 function UserDetails(user) {
     return (
         <div>
-            Detalles de {user}
+            Detalles de {user.name}
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-function ViewUsers({ users, deleteUser }) {
+function ViewUsers({ users, deleteUser, seeUser }) {
 
     const hanldeDelete = (e) =>{
         deleteUser(e.target.value)
@@ -12,7 +12,7 @@ function ViewUsers({ users, deleteUser }) {
             <ul>
                 {users && users.map((u, i) => (
                     <li>
-                        <a href={`/details/${i}`}>{u.name}</a>
+                        <p onClick={seeUser(u)}>{u.name}</p>
                         <span><button value={u.name} onClick={hanldeDelete}>X</button></span>
                     </li>
                 ))}

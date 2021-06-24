@@ -1,4 +1,6 @@
 .App {
+  display: flex;
+  flex-direction: column;
   text-align: center;
 }
 
@@ -24,8 +26,9 @@
   color: white;
 }
 
-.App-link {
+.button {
   color: #61dafb;
+  padding-top: 5px;
 }
 
 @keyframes App-logo-spin {
@@ -35,4 +38,24 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.add-user {
+  position:absolute;
+  display:flex;
+  align-items: center;
+}
+
+.form {
+  display:flex;
+  flex-direction: column;
+}
+
+.form input {
+  border-radius: 6px;
+}
+
+.view-users {
+  position: absolute;
 }

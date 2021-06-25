@@ -59,3 +59,30 @@
 .view-users {
   position: absolute;
 }
+
+.view-user {
+  position: absolute;
+}
+
+.tab {
+  background-color: transparent;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  cursor: pointer;
+}
+.tab :after{
+  background-color:rgba(0, 128, 128, 0.213);
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-around;
+}
+
+.list-user {
+  background-color: transparent;
+  border:none;
+  font-weight: bolder;
+  cursor:pointer;
+}

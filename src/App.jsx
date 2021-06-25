@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setUsers, removeUser } from './redux/actions/index'
 import CreateUser from './components/CreateUser/CreateUser';
 import ViewUsers from './components/ViewUsers/ViewUsers';
+import UserDetails from './components/UserDetails/UserDetails'
 
 function App() {
 
@@ -28,34 +29,32 @@ function App() {
   const reduxUsers = useSelector(state => state.users);
   const [allUsers, setAllUsers] = useState(reduxUsers);
   const [createOpen, setCreateOpen] = useState(false)
-  const [viewOpen, setViewOpen] = useState(false)
+  const [viewOpen, setViewOpen] = useState(true)
   const [detailsOpen, setDetailsOpen] = useState(false)
-
-
+  const users = JSON.parse(localStorage.getItem('users'))
   
-  
-
   useEffect( ()=> {
     setAllUsers(reduxUsers)
-    if(allUsers && allUsers.length) localStorage.setItem('users', JSON.stringify(allUsers))
-  }, [reduxUsers, allUsers]);
+  }, [reduxUsers]);
 
   useEffect(() => {
-    let users = localStorage.getItem('users')
-    if (allUsers && allUsers.length === 0) users.length && JSON.parse(users).map(u=> addUsers(u))
-    //eslint-disable-next-line
-  }, [])
+    if ( users.length ) users.forEach(u => addUsers(u));
+  }, [users, addUsers])
+
+  useEffect(() => {
+    if ( allUsers.length ) localStorage.setItem('users', JSON.stringify(allUsers));
+  }, [allUsers])
+
 
   return (
     <div className="App">
      <header className='App-header'>
-       <nav>
-         <button onClick={()=>{setViewOpen(true); setCreateOpen(false); setDetailsOpen(false)}}>Usuarios</button>
-         <button onClick={()=>{setViewOpen(false); setCreateOpen(true); setDetailsOpen(false)}}>Agregar usuario</button>
-         <button onClick={()=>{setViewOpen(false); setCreateOpen(false); setDetailsOpen(true)}}>Agregar usuario</button>
+       <nav className='tabs'>
+         <button className='tab' onClick={()=>{setViewOpen(true); setCreateOpen(false); setDetailsOpen(false)}}>Usuarios</button>
+         <button className='tab' onClick={()=>{setViewOpen(false); setCreateOpen(true); setDetailsOpen(false)}}>Agregar usuario</button>
        </nav>
      <video src="./dea10438c1728b0d5697e61f7aee4144.mp4"
-      loop='true'
+      loop={true}
       autoPlay
       alt="the talented team of intelifaz"
       className="jss195">
@@ -65,11 +64,15 @@ function App() {
         setNewUser={setNewUser}
         addUsers={addUsers}
         setErrors={setErrors}
-        errors={errors} />}
+        errors={errors}
+        allUsers={allUsers} />}
         {viewOpen && <ViewUsers
         users={allUsers}
         deleteUser={deleteUser}
-        seeUser={setCurrentUser}/>}
+        seeUser={setCurrentUser}
+        setViewOpen={setViewOpen}
+        setCreateOpen={setCreateOpen}
+        setDetailsOpen={setDetailsOpen}/>}
         {detailsOpen && <UserDetails user={currentUser} />}
      </header>
     </div>

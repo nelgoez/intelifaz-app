@@ -1,14 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
+//eslint-disable
 
-export const CreateUser = (props) => {
+export const CreateUser = ({ newUser, setNewUser, addUsers, setErrors, errors, allUsers }) => {
 
-    const {
-        newUser,
-        setNewUser,
-        addUsers,
-        setErrors,
-        errors
-    } = props
+    const areErrors = Object.values(errors).some(e => e.length > 0)
+
+    const [hasErrors, setHasErrors] = useState(true)
 
     function validate(name) {
         let testErrors = errors
@@ -16,33 +13,31 @@ export const CreateUser = (props) => {
         let nicknameExp = /^[a-zA-Z0-9 .!?"-]+$/;
         let emailExp = /^[^\s@]+@[^\s@]+$/;
         switch (name) {
-            case 'name': {
-                if (!nameExp.test(newUser[name]) || newUser[name].length === 0) testErrors = { ...testErrors, [name]: 'Debe ingresar un nombre Válido' }
+            case 'name':
+                 if (!nameExp.test(newUser[name]) || newUser[name].length === 0) testErrors = { ...testErrors, [name]: 'Debe ingresar un nombre Válido' }
                 else testErrors = { ...testErrors, [name]: '' }
-                break;
-            };
+                break ;
 
-            case 'lastname': {
-                if (!nameExp.test(newUser[name]) || newUser[name].length === 0) testErrors = { ...testErrors, [name]: 'Debe ingresar un apellido Válido' }
+            case 'lastname':
+                 if (!nameExp.test(newUser[name]) || newUser[name].length === 0) testErrors = { ...testErrors, [name]: 'Debe ingresar un apellido Válido' }
                 else testErrors = { ...testErrors, [name]: '' }
-                break;
-            };
+                break ;
 
-            case 'nickname': {
+            case 'nickname':
                 if (!nicknameExp.test(newUser[name]) || newUser[name].length === 0) testErrors = { ...testErrors, [name]: 'Debe ingresar un apodo Válido' }
                 else testErrors = { ...testErrors, [name]: '' }
-                break;
-            };
-            case 'email': {
-                if (!emailExp.test(newUser[name]) || newUser[name].length === 0) testErrors = { ...testErrors, [name]: 'Debe ingresar un E-Mail Válido' }
+                break ;
+
+            case 'email':
+                 if (!emailExp.test(newUser[name]) || newUser[name].length === 0) testErrors = { ...testErrors, [name]: 'Debe ingresar un E-Mail Válido' }
                 else testErrors = { ...testErrors, [name]: '' }
-                break;
-            };
-            case 'role': {
+                break ;
+
+            case 'role':
                 if (newUser[name].length === 0) testErrors = { ...testErrors, [name]: 'Debe seleccionar un role' };
                 else testErrors = { ...testErrors, [name]: '' }
-                break;
-            };
+                break ;
+                
             default: break;
         };
 
@@ -54,28 +49,36 @@ export const CreateUser = (props) => {
         let { value, name } = target;
         setNewUser({ ...newUser, [name]: value })
         setErrors(validate(name))
+        setHasErrors(areErrors)
     }
 
     function hanldeBlur(e) {
         setErrors(validate(e.target.name))
+        setHasErrors(areErrors)
     }
 
     function handleSubmit(e) {
         e.preventDefault()
-        addUsers(newUser)
-        setNewUser({
-            name: '',
-            lastname: '',
-            nickname: '',
-            email: '',
-            role: ''
-        })
+        if (!hasErrors) {
+            if (allUsers.find(u => u.email === newUser.email)) alert('El usuario ya existe!');
+            else {
+                addUsers(newUser)
+                setNewUser({
+                    name: '',
+                    lastname: '',
+                    nickname: '',
+                    email: '',
+                    role: ''
+                });
+                alert('Usuario agregado con éxito!')
+            }
+        }
     }
 
     return (
         <div className='add-user'>
             <form onSubmit={handleSubmit} className='form'>
-                acá se crea un usuario
+                 Completa tus dátos:
                 <label>Nombre</label>
                 <input
                     name='name'
@@ -83,6 +86,7 @@ export const CreateUser = (props) => {
                     onChange={handleChange}
                     onBlur={hanldeBlur}
                     placeholder='Nombre...' />
+                {errors.name && <span>{errors.name}</span>}
                 <label>Apellido</label>
                 <input
                     name='lastname'
@@ -90,6 +94,7 @@ export const CreateUser = (props) => {
                     onChange={handleChange}
                     onBlur={hanldeBlur}
                     placeholder='Apellido...' />
+                {errors.lastname && <span>{errors.lastname}</span>}
                 <label>Apodo</label>
                 <input
                     name='nickname'
@@ -97,6 +102,7 @@ export const CreateUser = (props) => {
                     onChange={handleChange}
                     onBlur={hanldeBlur}
                     placeholder='Apodo...' />
+                {errors.nickname && <span>{errors.nickname}</span>}
                 <label>Email</label>
                 <input
                     name='email'
@@ -104,6 +110,7 @@ export const CreateUser = (props) => {
                     onChange={handleChange}
                     onBlur={hanldeBlur}
                     placeholder='E-Mail...' />
+                {errors.email && <span>{errors.email}</span>}
                 <label>Role</label>
                 <input
                     name='role'
@@ -111,7 +118,8 @@ export const CreateUser = (props) => {
                     onChange={handleChange}
                     onBlur={hanldeBlur}
                     placeholder='Role...' />
-                <button className='button' disabled={!newUser} type='submit'>Agregar</button>
+                {errors.role && <span>{errors.role}</span>}
+                <button className='button' disabled={hasErrors} type='submit'>Agregar</button>
             </form>
         </div>
     )

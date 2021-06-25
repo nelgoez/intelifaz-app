@@ -21,7 +21,7 @@ function ViewUsers({ users, deleteUser, seeUser, setViewOpen, setDetailsOpen }) 
         seeUser(userShown)
     }
 
-    if(users.length === 0) return <h1>Aún no hay usuarios: ve a Agregar usuarios</h1>
+    if(users.length === 0) return <h1 className='view-users'>Aún no hay usuarios: ve a Agregar usuarios</h1>
 
     return (
         <div className='view-users'>

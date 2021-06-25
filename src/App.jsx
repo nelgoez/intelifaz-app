@@ -34,16 +34,15 @@ function App() {
   const users = JSON.parse(localStorage.getItem('users'))
   
   useEffect( ()=> {
-    setAllUsers(reduxUsers)
+    setAllUsers(reduxUsers);
   }, [reduxUsers]);
 
   useEffect(() => {
-    if ( allUsers.length === 0 && users.length ) users.forEach(u => addUsers(u));
-  }, [allUsers, users, addUsers])
-
-  useEffect(() => {
-    if ( allUsers.length ) localStorage.setItem('users', JSON.stringify(allUsers));
-  }, [allUsers])
+    if (users.lengh) {
+      if (!allUsers.length) users.forEach(u => addUsers(u));
+    } else localStorage.setItem('users', allUsers)
+    //eslint-disable-next-line
+  }, [allUsers, users])
 
 
   return (
@@ -54,7 +53,7 @@ function App() {
          <button className={createOpen ? 'tab-selected' : 'tab'} onClick={()=>{setViewOpen(false); setCreateOpen(true); setDetailsOpen(false)}}>Agregar usuario</button>
        </nav>
      <video src="./dea10438c1728b0d5697e61f7aee4144.mp4"
-      loop={true}
+      loop
       autoPlay
       alt="the talented team of intelifaz"
       className="jss195">

@@ -38,8 +38,8 @@ function App() {
   }, [reduxUsers]);
 
   useEffect(() => {
-    if ( users.length ) users.forEach(u => addUsers(u));
-  }, [users, addUsers])
+    if ( allUsers.length === 0 && users.length ) users.forEach(u => addUsers(u));
+  }, [allUsers, users, addUsers])
 
   useEffect(() => {
     if ( allUsers.length ) localStorage.setItem('users', JSON.stringify(allUsers));
@@ -50,8 +50,8 @@ function App() {
     <div className="App">
      <header className='App-header'>
        <nav className='tabs'>
-         <button className='tab' onClick={()=>{setViewOpen(true); setCreateOpen(false); setDetailsOpen(false)}}>Usuarios</button>
-         <button className='tab' onClick={()=>{setViewOpen(false); setCreateOpen(true); setDetailsOpen(false)}}>Agregar usuario</button>
+         <button className={viewOpen ? 'tab-selected' : 'tab'} onClick={()=>{setViewOpen(true); setCreateOpen(false); setDetailsOpen(false)}}>Usuarios</button>
+         <button className={createOpen ? 'tab-selected' : 'tab'} onClick={()=>{setViewOpen(false); setCreateOpen(true); setDetailsOpen(false)}}>Agregar usuario</button>
        </nav>
      <video src="./dea10438c1728b0d5697e61f7aee4144.mp4"
       loop={true}

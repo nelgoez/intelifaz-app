@@ -71,9 +71,16 @@
   border-right: none;
   cursor: pointer;
 }
-.tab :after{
-  background-color:rgba(0, 128, 128, 0.213);
+
+.tab-selected {
+  background-color:rgba(0, 128, 128, 0.337);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: thick;
+  cursor: pointer;
 }
+
 
 .tabs {
   display: flex;

@@ -2,15 +2,16 @@ import React from 'react'
 import { useEffect } from 'react'
 
 
-function ViewUsers({ users, deleteUser, seeUser, setViewOpen, setDetailsOpen }) {
+function ViewUsers({ users, deleteUser, seeUser, setViewOpen, setDetailsOpen, setCreateOpen }) {
 
     useEffect(() => {
         localStorage.setItem('users', JSON.stringify(users))
-    }, [deleteUser])
+    }, [deleteUser, users])
 
     const hanldeDelete = (e) =>{
         e.preventDefault()
-        deleteUser(e.target.value)
+        deleteUser(e.target.value);
+        localStorage.setItem('users', JSON.stringify(users))
     }
 
     const handleOpen = (e) =>{
@@ -21,18 +22,24 @@ function ViewUsers({ users, deleteUser, seeUser, setViewOpen, setDetailsOpen }) 
         seeUser(userShown)
     }
 
-    if(users.length === 0) return <h1 className='view-users'>Aún no hay usuarios: ve a Agregar usuarios</h1>
+    const handleGoTo = (e) =>{
+        e.preventDefault();
+        setCreateOpen(true);
+        setViewOpen(false);
+    }
+
+    if(users.length === 0) return <h1 className='view-users'>Aún no hay usuarios: ve a <button className='go-to-add' onClick={handleGoTo}>agregar usuarios</button></h1>
 
     return (
         <div className='view-users'>
             <label>Usuarios</label>
-            <ul>
+            <ul className='list-item'>
                 {users && users.map((u, i) => (
-                    <li key={i}>
+                    <li className='item' key={i}>
                         <span>
                             <button className='list-user' value={i} onClick={handleOpen}>{u.name}</button>
                         </span>
-                    <span><button value={u.name} onClick={hanldeDelete}>X</button></span>
+                    <span><button className='delete' value={u.name} onClick={hanldeDelete}>X</button></span>
                     </li>
                 ))}
             </ul>

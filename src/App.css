@@ -4,17 +4,6 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -27,20 +16,16 @@
 }
 
 .button {
-  color: #61dafb;
+  touch-action: auto;
+  cursor:pointer;
+  border:thin;
+  background-color:rgba(70, 131, 180, 0.611);
+  font-weight:bold;
+  border-radius: 0.3rem;
+  color: #02232c;
   padding-top: 5px;
+  height: calc(3vmax - 5px);
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-
 .add-user {
   position:absolute;
   display:flex;
@@ -53,10 +38,15 @@
 }
 
 .form input {
+  border:thin;
+  width: auto;
+  min-width:min-content;
+  height: calc(2vmax - 3px);
   border-radius: 6px;
 }
 
 .view-users {
+  top: calc(15% - 2vmin);
   position: absolute;
 }
 
@@ -65,6 +55,8 @@
 }
 
 .tab {
+  size: 50px;
+  font-size: calc(27px + 2vmin);
   background-color: transparent;
   border-top: none;
   border-left: none;
@@ -73,6 +65,8 @@
 }
 
 .tab-selected {
+  size: 50px;
+  font-size: calc(27px + 2vmin);
   border-radius: 4px 4px 0 0 ;
   background-color:rgba(0, 128, 128, 0.337);
   border-top: none;
@@ -90,8 +84,46 @@
 }
 
 .list-user {
+  font-size: calc(27px + 2vmin);
   background-color: transparent;
   border:none;
   font-weight: bolder;
   cursor:pointer;
+}
+
+.go-to-add {
+  min-height: 100vh;
+  font-size: calc(27px + 2vmin);
+  background-color: transparent;
+  border:none;
+  font-weight: bolder;
+  cursor:pointer;
+}
+
+.list-item {
+  list-style-type: none;
+  display:flex;
+  justify-content: center;
+}
+
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.errors {
+  background: rgba(218, 165, 32, 0.207);
+  color: darkred;
+  font-size: calc(5px + 2vmin);
+}
+
+.delete {
+  font-weight: bolder;
+  cursor:pointer;
+  border:medium;
+  background: rgba(167, 8, 8, 0.535);
+  border-radius: 0.4rem;
+  position: sticky;
+  height: 2vmax;
 }

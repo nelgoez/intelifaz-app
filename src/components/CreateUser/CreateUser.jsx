@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
-//eslint-disable
+import React, { useState, useEffect } from 'react'
 
 export const CreateUser = ({ newUser, setNewUser, addUsers, setErrors, errors, allUsers }) => {
+
+    useEffect(() => {
+        setHasErrors(areErrors)
+    }, [errors, areErrors])
 
     const areErrors = Object.values(errors).some(e => e.length > 0)
 
@@ -37,7 +40,7 @@ export const CreateUser = ({ newUser, setNewUser, addUsers, setErrors, errors, a
                 if (newUser[name].length === 0) testErrors = { ...testErrors, [name]: 'Debe seleccionar un role' };
                 else testErrors = { ...testErrors, [name]: '' }
                 break ;
-                
+
             default: break;
         };
 
@@ -49,12 +52,11 @@ export const CreateUser = ({ newUser, setNewUser, addUsers, setErrors, errors, a
         let { value, name } = target;
         setNewUser({ ...newUser, [name]: value })
         setErrors(validate(name))
-        setHasErrors(areErrors)
+        
     }
 
     function hanldeBlur(e) {
         setErrors(validate(e.target.name))
-        setHasErrors(areErrors)
     }
 
     function handleSubmit(e) {
@@ -78,7 +80,7 @@ export const CreateUser = ({ newUser, setNewUser, addUsers, setErrors, errors, a
     return (
         <div className='add-user'>
             <form onSubmit={handleSubmit} className='form'>
-                 Completa tus dátos:
+                 <h4>Completa tus dátos:</h4>
                 <label>Nombre</label>
                 <input
                     name='name'
@@ -86,7 +88,7 @@ export const CreateUser = ({ newUser, setNewUser, addUsers, setErrors, errors, a
                     onChange={handleChange}
                     onBlur={hanldeBlur}
                     placeholder='Nombre...' />
-                {errors.name && <span>{errors.name}</span>}
+                {errors.name && <span className='errors'>{errors.name}</span>}
                 <label>Apellido</label>
                 <input
                     name='lastname'
@@ -94,7 +96,7 @@ export const CreateUser = ({ newUser, setNewUser, addUsers, setErrors, errors, a
                     onChange={handleChange}
                     onBlur={hanldeBlur}
                     placeholder='Apellido...' />
-                {errors.lastname && <span>{errors.lastname}</span>}
+                {errors.lastname && <span className='errors'>{errors.lastname}</span>}
                 <label>Apodo</label>
                 <input
                     name='nickname'
@@ -102,7 +104,7 @@ export const CreateUser = ({ newUser, setNewUser, addUsers, setErrors, errors, a
                     onChange={handleChange}
                     onBlur={hanldeBlur}
                     placeholder='Apodo...' />
-                {errors.nickname && <span>{errors.nickname}</span>}
+                {errors.nickname && <span className='errors'>{errors.nickname}</span>}
                 <label>Email</label>
                 <input
                     name='email'
@@ -110,7 +112,7 @@ export const CreateUser = ({ newUser, setNewUser, addUsers, setErrors, errors, a
                     onChange={handleChange}
                     onBlur={hanldeBlur}
                     placeholder='E-Mail...' />
-                {errors.email && <span>{errors.email}</span>}
+                {errors.email && <span className='errors'>{errors.email}</span>}
                 <label>Role</label>
                 <input
                     name='role'
@@ -118,7 +120,8 @@ export const CreateUser = ({ newUser, setNewUser, addUsers, setErrors, errors, a
                     onChange={handleChange}
                     onBlur={hanldeBlur}
                     placeholder='Role...' />
-                {errors.role && <span>{errors.role}</span>}
+                {errors.role && <span className='errors'>{errors.role}</span>}
+                <br/>
                 <button className='button' disabled={hasErrors} type='submit'>Agregar</button>
             </form>
         </div>

@@ -1,27 +1,23 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Scripts disponibles
 
-In the project directory, you can run:
+En el proyecto puedes corrrer:
 
-### `yarn start`
+### `yarn start` / `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Para correr la app en modo developer
+Abre [http://localhost:3000](http://localhost:3000) para ver la app el en navegador.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+La página se recargará si realiza modificaciones.
 
-### `yarn test`
+### `yarn test` / `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Inicia el motor de pruebas en el modo de vigía interactivo.\
 
 ### `yarn build`
 
-Builds the app for production to the `build` folder.\
+Construye la aplicación para producción en la carpeta `build`. \
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.\

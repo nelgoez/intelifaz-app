@@ -3,6 +3,10 @@
 
 ## Scripts disponibles
 
+### `npm install`. \
+
+Para instalar las dependencias correspondientes. \
+
 En el proyecto puedes corrrer:
 
 ### `yarn start` / `npm start`

@@ -1,5 +1,5 @@
 
-#Detalles de la app y explición de Redux. \
+# Detalles de la app y explición de Redux. \
 ## Scripts disponibles
 
 En el proyecto puedes corrrer:

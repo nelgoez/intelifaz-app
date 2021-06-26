@@ -36,13 +36,12 @@ Si prescindes de Redux, en React tienes componentes con estado, que para comunic
 * Inmutabilidad: el estado es read-only. Ninguna interacción puede cambiarlo directamente. Lo único que puedes hacer para conseguirlo es emitir una acción que expresa su intención de cambiarlo.
 * Funciones puras: Usa funciones puras (a mismos inputs, mismos outputs) para definir como cambia el estado en base a una acción. En Redux estas funciones se conocen como reducers y al ser puras, su comportamiento es predecible.
 
-
-### Integración con react:
+### Integración con react
 
 Encapsulando nuestra aplicación con el componente Provider que trae react-redux. Este componente recibe un único parámetro llamado store el cual es, como su nombre indica, la instancia del Store que usamos.
 Este componente Provider define en el contexto global de React nuestra instancia del store. Dejándolo de ésta fomra 'a la mano' para usarlo en los componentes que necesitemos ya sea mediante el decorador `connect` o con los hooks `useSelector`, `useDispatch` .
 
-De ésta fomra usamos y o mandámos a modificar el estados del store desde los componentes sin riesgos. Ya que solo mandamos un objeto con el tipo de acción y, si el tipo de acción lo requiere, los datos para realizarla:
+De ésta fomra usamos y/o mandámos a modificar el estados del store desde los componentes sin riesgos. Ya que solo mandamos un objeto con el tipo de acción y, si el tipo de acción lo requiere, los datos para realizarla:
 
 En la forma : `{
         type: 'HACER_ESTO'
@@ -50,3 +49,7 @@ En la forma : `{
         estado: 'nuevo empleo'
             }
         }`
+
+Y redux toma éste objeto (cuando despachamos alguna 'acción' -un objeto como el de arriba-), lo pasa por el reducer, que filtra las acciónes segun su tipo (si no cae en ningún typo esperado no hará nada, evitando problemas comunes.), y es este el que en ultima instancia tomará una cópia temporal del store o de la parte del store que queremos cambiar, la módificará (a la copia, nunca el store o estados directamente) y por útimo reemplazará el store con la copia.
+
+Éste intricado recorrido para modificar un objeto, aunque al pricipio resulte engorroso, previene problemas comunes como reescribír o 'pisar' valores. Ya que nunca modificamos directamente nada. Mandamos a hacer a través de las estrictas reglas de Redux que nos compele a especificar y estructurar cómo y en que manera van a cambiar nuestros estados en redux.

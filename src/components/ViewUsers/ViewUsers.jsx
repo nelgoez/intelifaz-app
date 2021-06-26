@@ -4,14 +4,10 @@ import { useEffect } from 'react'
 
 function ViewUsers({ users, deleteUser, seeUser, setViewOpen, setDetailsOpen, setCreateOpen }) {
 
-    useEffect(() => {
-        localStorage.setItem('users', JSON.stringify(users))
-    }, [deleteUser, users])
 
-    const hanldeDelete = (e) =>{
+    const handleDelete = (e) =>{
         e.preventDefault()
         deleteUser(e.target.value);
-        localStorage.setItem('users', JSON.stringify(users))
     }
 
     const handleOpen = (e) =>{
@@ -32,14 +28,14 @@ function ViewUsers({ users, deleteUser, seeUser, setViewOpen, setDetailsOpen, se
 
     return (
         <div className='view-users'>
-            <label>Usuarios</label>
+            <label><h4>Usuarios :</h4></label>
             <ul className='list-item'>
                 {users && users.map((u, i) => (
                     <li className='item' key={i}>
                         <span>
-                            <button className='list-user' value={i} onClick={handleOpen}>{u.name}</button>
+                            <button className='list-user' value={i} onClick={handleOpen}>{u.name.split(' ')[0]}</button>
                         </span>
-                    <span><button className='delete' value={u.name} onClick={hanldeDelete}>X</button></span>
+                    <span><button className='delete' value={u.email} onClick={handleDelete}>X</button></span>
                     </li>
                 ))}
             </ul>

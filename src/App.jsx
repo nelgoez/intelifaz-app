@@ -16,6 +16,7 @@ function App() {
     lastname: '',
     nickname: '',
     email: '',
+    phone:'',
     role: ''
   });
   const [errors, setErrors] = useState({
@@ -23,6 +24,7 @@ function App() {
     lastname: '',
     nickname: '',
     email: '',
+    phone: '',
     role: ''
   })
   const [currentUser, setCurrentUser] = useState(null)
@@ -31,20 +33,12 @@ function App() {
   const [createOpen, setCreateOpen] = useState(false)
   const [viewOpen, setViewOpen] = useState(true)
   const [detailsOpen, setDetailsOpen] = useState(false)
+
   
   useEffect(() => {
     setAllUsers(reduxUsers);
-    localStorage.setItem('users', JSON.stringify(allUsers))
-  }, [reduxUsers, allUsers]);
+  }, [reduxUsers]);
   
-  const users = JSON.parse(localStorage.getItem('users'))
-  
-  useEffect(() => {
-    if (users.length && !allUsers.length) {
-      users.forEach(u => addUsers(u));   
-    }
-    //eslint-disable-next-line
-  }, [users])
 
 
   return (

@@ -2,44 +2,52 @@ import React, { useState, useEffect } from 'react'
 
 export const CreateUser = ({ newUser, setNewUser, addUsers, setErrors, errors, allUsers }) => {
 
+    const areErrors = Object.values(errors).some(e => e.length > 0);
+    const [hasErrors, setHasErrors] = useState(true);
+    const roles = ['admin', 'usuario', 'invitado']
+
     useEffect(() => {
         setHasErrors(areErrors)
     }, [errors, areErrors])
 
-    const areErrors = Object.values(errors).some(e => e.length > 0)
 
-    const [hasErrors, setHasErrors] = useState(true)
 
     function validate(name) {
         let testErrors = errors
         let nameExp = /^[a-zA-Z ]*$/;
         let nicknameExp = /^[a-zA-Z0-9 .!?"-]+$/;
         let emailExp = /^[^\s@]+@[^\s@]+$/;
+        let phoneExp = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
         switch (name) {
             case 'name':
-                 if (!nameExp.test(newUser[name]) || newUser[name].length === 0) testErrors = { ...testErrors, [name]: 'Debe ingresar un nombre Válido' }
+                if (!nameExp.test(newUser[name]) || newUser[name].length === 0) testErrors = { ...testErrors, [name]: 'Debe ingresar un nombre Válido' }
                 else testErrors = { ...testErrors, [name]: '' }
-                break ;
+                break;
 
             case 'lastname':
-                 if (!nameExp.test(newUser[name]) || newUser[name].length === 0) testErrors = { ...testErrors, [name]: 'Debe ingresar un apellido Válido' }
+                if (!nameExp.test(newUser[name]) || newUser[name].length === 0) testErrors = { ...testErrors, [name]: 'Debe ingresar un apellido Válido' }
                 else testErrors = { ...testErrors, [name]: '' }
-                break ;
+                break;
 
             case 'nickname':
                 if (!nicknameExp.test(newUser[name]) || newUser[name].length === 0) testErrors = { ...testErrors, [name]: 'Debe ingresar un apodo Válido' }
                 else testErrors = { ...testErrors, [name]: '' }
-                break ;
+                break;
 
             case 'email':
-                 if (!emailExp.test(newUser[name]) || newUser[name].length === 0) testErrors = { ...testErrors, [name]: 'Debe ingresar un E-Mail Válido' }
+                if (!emailExp.test(newUser[name]) || newUser[name].length === 0) testErrors = { ...testErrors, [name]: 'Debe ingresar un E-Mail Válido' }
                 else testErrors = { ...testErrors, [name]: '' }
-                break ;
+                break;
+
+                case 'phone':
+                    if (!phoneExp   .test(newUser[name]) || newUser[name].length === 0) testErrors = { ...testErrors, [name]: 'Debe ingresar un E-Mail Válido' }
+                    else testErrors = { ...testErrors, [name]: '' }
+                    break;
 
             case 'role':
                 if (newUser[name].length === 0) testErrors = { ...testErrors, [name]: 'Debe seleccionar un role' };
                 else testErrors = { ...testErrors, [name]: '' }
-                break ;
+                break;
 
             default: break;
         };
@@ -52,7 +60,7 @@ export const CreateUser = ({ newUser, setNewUser, addUsers, setErrors, errors, a
         let { value, name } = target;
         setNewUser({ ...newUser, [name]: value })
         setErrors(validate(name))
-        
+
     }
 
     function hanldeBlur(e) {
@@ -80,7 +88,7 @@ export const CreateUser = ({ newUser, setNewUser, addUsers, setErrors, errors, a
     return (
         <div className='add-user'>
             <form onSubmit={handleSubmit} className='form'>
-                 <h4>Completa tus dátos:</h4>
+                <h4>Completa tus dátos:</h4>
                 <label>Nombre</label>
                 <input
                     name='name'
@@ -113,15 +121,24 @@ export const CreateUser = ({ newUser, setNewUser, addUsers, setErrors, errors, a
                     onBlur={hanldeBlur}
                     placeholder='E-Mail...' />
                 {errors.email && <span className='errors'>{errors.email}</span>}
-                <label>Role</label>
+                <label>Tel</label>
                 <input
+                    name='phone'
+                    value={newUser.phone}
+                    onChange={handleChange}
+                    onBlur={hanldeBlur}
+                    placeholder='Teléfono...' />
+                {errors.phone && <span className='errors'>{errors.phone}</span>}
+                <label>Role</label>
+                <select
                     name='role'
                     value={newUser.role}
                     onChange={handleChange}
-                    onBlur={hanldeBlur}
-                    placeholder='Role...' />
+                    onBlur={hanldeBlur} >
+                       { roles.map(r => (<option value={r}>{r}</option>)) }
+                        </select>
                 {errors.role && <span className='errors'>{errors.role}</span>}
-                <br/>
+                <br />
                 <button className='button' disabled={hasErrors} type='submit'>Agregar</button>
             </form>
         </div>

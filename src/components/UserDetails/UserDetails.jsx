@@ -16,6 +16,7 @@ function UserDetails({user, setViewOpen, setDetailsOpen}) {
             <p>Apellido: {user.lastname}</p>
             <p>Apodo: {user.nickname}</p>
             <p>E-Mail: {user.email}</p>
+            <p>Teléfono: {user.phone}</p>
             <p>Role: {user.role}</p>
         </div>
     )

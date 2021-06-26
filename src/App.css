@@ -18,7 +18,6 @@
 .button {
   touch-action: auto;
   cursor:pointer;
-  border:thin;
   background-color:rgba(70, 131, 180, 0.611);
   font-weight:bold;
   border-radius: 0.3rem;
@@ -26,6 +25,7 @@
   padding-top: 5px;
   height: calc(3vmax - 5px);
 }
+
 .add-user {
   position:absolute;
   display:flex;
@@ -37,7 +37,7 @@
   flex-direction: column;
 }
 
-.form input {
+.form input, select {
   border:thin;
   width: auto;
   min-width:min-content;
@@ -51,6 +51,7 @@
 }
 
 .view-user {
+  /* top: calc(15% - 2vmin); */
   position: absolute;
 }
 
@@ -67,7 +68,7 @@
 .tab-selected {
   size: 50px;
   font-size: calc(27px + 2vmin);
-  border-radius: 4px 4px 0 0 ;
+  border-radius: 10px 10px 0 0 ;
   background-color:rgba(0, 128, 128, 0.337);
   border-top: none;
   border-left: none;
@@ -104,6 +105,7 @@
   list-style-type: none;
   display:flex;
   justify-content: center;
+  flex-direction: column;
 }
 
 .item {
@@ -126,4 +128,15 @@
   border-radius: 0.4rem;
   position: sticky;
   height: 2vmax;
+}
+
+.button:disabled {
+  touch-action: auto;
+  cursor:pointer;
+  background-color:transparent;
+  font-weight:bold;
+  border-radius: 0.3rem;
+  color: #02232c;
+  padding-top: 5px;
+  height: calc(3vmax - 5px);
 }
